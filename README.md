@@ -1,3 +1,3 @@
 # node-express-mongo-seed
 
-este repositorio tiene como fin ser una semilla para comenzar de forma rapida y sencilla otros proyectos.
+This repository is intended to be a seed to start quickly and easily other projects.
