@@ -23,7 +23,7 @@
     "normalize.css": "^3.0.3",
     "qs": "^5.2.0",
     "react": "^0.14.0",
-    "react-dom": "^0.14.0",
+    "react-dom": "^0.14.0"
   },
   "devDependencies": {
     "babel-core": "^5.8.25",
