@@ -25,7 +25,6 @@ app.use((req, res, next) => {
 app.use(require("./routes"));
 
 // Create the database connection
-console.log(config);
 mongoose.connect(config.DB_URI, function(err){
 
   if (err) return console.log(chalk.red(err));
