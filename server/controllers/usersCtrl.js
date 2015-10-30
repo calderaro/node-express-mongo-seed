@@ -1,44 +1,21 @@
 "use strict";
 
-//exports.list = function(req,res){
-//
-//	var page = req.params.page || 0;
-//	if(!v.isNumeric(page)) return res.status(400).json("No es un numero");
-//
-//	var skip = 15 * page;
-//	userMdl.find({}).skip(skip).limit(15)
-//	.select("username name user ci dept").deepPopulate(["user","dept"]).exec(function(err, users){
-//		if (err) return res.status(500).json(err);
-//		if (!users.length) return res.status(404).json("No se encontraron Usuarios");
-//		res.json(users);
-//	})
-//}
-//exports.show = function(req,res){
-//
-//	var id = req.params.id;
-//	if(!v.isAlphanumeric(id) || !v.isLength(id, 24, 24)) return res.status(400).json("No es un ID");
-//
-//	userMdl
-//	.findOne({_id: req.params.id})
-//	.select("username name user ci dept")
-//	.deepPopulate(["user","dept"])
-//	.exec(function(err, user) {
-//		if (err) return res.status(500).json(err);
-//		if (!user) return res.status(404).json("ID no existe");
-//		res.json(user);
-//	});
-//}
-//req.models.users.find({}, (err, users) => res.status(200).json(users));
+exports.list = function(req,res){
+
+	let page = req.params.page || 0;
+	let skip = 15 * page;
+
+	req.models.users.find({}).deepPopulate(["creator","access_map"]).exec(function(err, users){
+		if (err) return res.status(500).json(err);
+		if (!users.length) return res.status(404).json("No se encontraron Usuarios");
+		res.json(users);
+	});
+}
+ 
 exports.create = function(req,res){
 
-  let {body, username, userpass, name,	creator } = req.body; 
-
-  req.models.users.insert({
-    username,
-    userpass,
-    name,
-    creator
-  },function(err, user) {
+  req.body.creator = req.token._id
+  req.models.users.insert(req.body ,function(err, user) {
     if (err) return res.status(500).json(err);
     res.json(user);
   });

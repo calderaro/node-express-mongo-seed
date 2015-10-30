@@ -4,6 +4,7 @@ let http = require("http"),
   express = require("express"),
   logger = require("morgan"),
   mongoose = require("mongoose"),
+  models = require("./models/"),
   chalk = require("chalk"),
   bodyParser = require("body-parser"),
   app = express(),
@@ -32,9 +33,6 @@ mongoose.connect(config.DB_URI, function(err){
 
   // listen for connection is disconnected
   mongoose.connection.on("disconnected", () => { console.log(chalk.red("Mongoose default connection disconnected")); });
-
-  //register models
-  require("./models/");
 
   // log the connection
   console.log(chalk.green("Mongoose connection open to " + config.DB_URI));

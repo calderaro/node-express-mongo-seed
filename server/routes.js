@@ -3,10 +3,12 @@ let router = require("express").Router();
 let ctrls = require("./controllers/");
 
 router.get("/", (req, res) => res.render("index"));
-router.get("/traders", ctrls.tradersCtrl.list);
-router.post("/traders", ctrls.tradersCtrl.create);
-router.put("/traders/:id", ctrls.tradersCtrl.edit);
-router.delete("/traders/:id", ctrls.tradersCtrl.delete);
+router.post("/login", ctrls.authenticationCtrl.login);
 
-router.post("/users", ctrls.usersCtrl.create);
+router.get("/users", ctrls.authenticationCtrl.authorize, ctrls.usersCtrl.list);
+router.post("/users", ctrls.authenticationCtrl.authorize, ctrls.usersCtrl.create);
+
+router.get("/maps",  ctrls.authenticationCtrl.authorize, ctrls.mapsCtrl.list);
+router.post("/maps", ctrls.authenticationCtrl.authorize, ctrls.mapsCtrl.create);
+
 module.exports = router;
