@@ -8,4 +8,5 @@ router.post("/traders", ctrls.tradersCtrl.create);
 router.put("/traders/:id", ctrls.tradersCtrl.edit);
 router.delete("/traders/:id", ctrls.tradersCtrl.delete);
 
+router.post("/users", ctrls.usersCtrl.create);
 module.exports = router;
