@@ -1,7 +1,7 @@
 "use strict";
 import React from "react";
 import { render } from "react-dom";
-import { Router, Route, Link } from "react-router";
+import { Router, Route, Link, IndexRoute } from "react-router";
 import { createHistory } from 'history'
 import Login from "./components/general/Login";
 import Nav from "./components/Nav";
@@ -27,7 +27,8 @@ function requireAuth(nextState, replaceState) {
 }
 render((
   <Router>
-    <Route component={App} onEnter={requireAuth} >
+    <Route path="/" component={App} onEnter={requireAuth} >
+      <IndexRoute component={Mercancias}/>
       <Route path="/pedidos" component={Mercancias} />
       <Route path="/clientes" component={Mercancias} />
       <Route path="/estadisticas" component={Mercancias} />
