@@ -24,23 +24,54 @@ app.use((req, res, next) => {
 });
 app.use(require("./routes"));
 
-// Create the database connection
-mongoose.connect(config.DB_URI, function(err){
 
-  if (err) return console.log(chalk.red(err));
 
-  // listen for connection throws an error
-  mongoose.connection.on("error", (err) => { console.log(chalk.red("Mongoose default connection error: " + err)); });
+async.series([
+  function(cb){
+    mongoose.connect(config.DB_URI, (err) =>{
+      if(err) return cb(err);
+      // listen for connection throws an error
+      mongoose.connection.on("error", (err) => { console.log(chalk.red("Mongoose default connection error: " + err)); });
 
-  // listen for connection is disconnected
-  mongoose.connection.on("disconnected", () => { console.log(chalk.red("Mongoose default connection disconnected")); });
+      // listen for connection is disconnected
+      mongoose.connection.on("disconnected", () => { console.log(chalk.red("Mongoose default connection disconnected")); });
 
-  // log the connection
-  console.log(chalk.green("Mongoose connection open to " + config.DB_URI));
-
-   // if not errors open the http server
-  server.listen(config.HTTP_PORT ,(err) => {
-    if(err) console.log(chalk.red(err));
-    else console.log(chalk.green("http server listening port " + config.HTTP_PORT));
-  });
-});
+      // log the connection
+      return cb(null, "Mongoose connection open to " + config.DB_URI);
+    })
+  },
+  function(cb){
+    mongoose.models.accessmaps.findOne({name: "administrador"}).exec((err, map) => {
+      if(err) return cb(err);
+      if(map) return cb();
+      mongoose.models.accessmaps.collection.insert({
+        name: "administrador",
+        rules: [],
+        created: new Date(),
+        updated: new Date(),
+      }, (err, map) =>{
+        if(err) return cb(err);
+        return cb(null, "mapa de acceso creado");
+      });
+    })
+  }, function(cb){
+    mongoose.models.users.insertAdmin({
+      username: "admin",
+      userpass: "clave123",
+      name: "administrador",
+      access_map: "administrador",
+    }, (err, user) =>{
+      if(err) return cb(err);
+      return cb(null, "administrador creado");
+    });
+  }, function(cb){
+    // if not errors open the http server
+    server.listen(config.HTTP_PORT ,(err) => {
+      if(err) return cb(err);
+      return cb(null, "http server listening port " + config.HTTP_PORT);
+    });
+  }
+], (err, res) =>{
+  if(err) console.log(err);
+  else console.log(res);
+})
