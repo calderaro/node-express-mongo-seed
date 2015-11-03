@@ -8,13 +8,13 @@ exports.login = function(req,res){
   
   req.models.users.findOne({username: username}).lean().exec(function(err, user){
     if(err) return res.json(err);
-    if(!user) return res.json("Usuario no existe");
+    if(!user) return res.status(400).json("Usuario no existe");
     let salt = user.salt
     crypto.pbkdf2(userpass, salt, 4096, 512, 'sha256', function(err, hash) {
         if (err) return res.json(err);
         if((hash).toString() !== user.hash) return res.json("Usuario no existe");
         let token = jwt.sign({ username: user.username, _id: user._id }, 'shhhhh');
-        return res.json({token: token })
+        return res.status(200).json(token)
     });
   });
 }
