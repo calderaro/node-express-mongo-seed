@@ -1,5 +1,5 @@
 module.exports = {
-    entry: "./client/proxy.js",
+    entry: "./client/app.js",
     output: {
         path: __dirname+"/server/public/",
         filename: "bundle.js"

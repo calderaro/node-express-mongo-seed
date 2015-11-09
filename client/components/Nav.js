@@ -28,10 +28,11 @@ export default	React.createClass({
 				<div className={ this.state.bar ? "sideBarOpen" : "sideBarClosed"} onClick={this.toggleMenu} >
 					<div className="bar"  onClick={(e) => { e.stopPropagation() } }>
 						<ul>
-							<Link to="/pedidos"><li>Pedidos</li></Link>
-							<Link to="/pedidos"><li>Clientes</li></Link>
-							<Link to="/pedidos"><li>Estadisticas</li></Link>
-							<Link to="/pedidos"><li>Usuarios</li></Link>
+							<Link to="/"><li>Pedidos</li></Link>
+							<Link to="/"><li>Clientes</li></Link>
+							<Link to="/"><li>Estadisticas</li></Link>
+							<Link to="/"><li>Usuarios</li></Link>
+              <Link to="/logout"><li>Salir</li></Link>
 						</ul>
 					</div>
 				</div>
