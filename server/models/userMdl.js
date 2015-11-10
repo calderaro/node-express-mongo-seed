@@ -1,6 +1,6 @@
 "use strict";
 
-let bcrypt = require('bcryptjs'),
+let bcrypt = require('bcrypt'),
   mongoose = require("mongoose"),
   Schema = mongoose.Schema,
   ObjectId = Schema.Types.ObjectId;

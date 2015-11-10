@@ -1,5 +1,5 @@
 "use strict";
-let bcrypt = require('bcryptjs'),
+let bcrypt = require('bcrypt'),
   jwt = require("jsonwebtoken");
 
 exports.login = function(req,res){

@@ -29,6 +29,7 @@ app.use((req, res, next) => {
 
 async.series([
   function(cb){
+    return cb(null)
     mysql.createPool(config.MYSQL).getConnection(function(err, connection) {
       if(err) return cb(err);
       app.use((req, res, next) => {

@@ -2,8 +2,6 @@
 import React from "react";
 import { Link } from "react-router";
 import navcss from "../styles/nav.css";
-import list from "./lists/List";
-
 export default	React.createClass({
 	getInitialState: function() {
     	return {bar: false};

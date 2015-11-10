@@ -5,11 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon --harmony_destructuring ./server/server.js",
-    "wp": "webpack --watch"
+    "compile": "webpack --watch"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^0.8.5",
     "bcryptjs": "^2.3.0",
     "body-parser": "^1.14.1",
     "chalk": "^1.1.1",
@@ -29,8 +30,14 @@
     "normalize.css": "^3.0.3",
     "qs": "^5.2.0",
     "react": "^0.14.2",
+    "react-addons-create-fragment": "^0.14.2",
+    "react-addons-pure-render-mixin": "^0.14.2",
+    "react-addons-transition-group": "^0.14.2",
+    "react-addons-update": "^0.14.2",
     "react-dom": "^0.14.0",
+    "react-materialize": "^0.1.0",
     "react-router": "^0.13.4",
+    "react-tap-event-plugin": "^0.2.1",
     "superagent": "^1.4.0"
   },
   "devDependencies": {
